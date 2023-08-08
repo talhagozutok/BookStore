@@ -1,14 +1,18 @@
 ﻿using Entities.Models;
+using Entities.RequestFeatures;
+using Entities.RequestParameters;
 
-namespace Repositories.Contracts
+namespace Repositories.Contracts;
+
+public interface IBookRepository : IRepositoryBase<Book>
 {
-    public interface IBookRepository : IRepositoryBase<Book>
-    {
-        IQueryable<Book> GetAllBooks(bool trackChanges);
-        IQueryable<Book> GetOneBookById(int id, bool trackChanges);
+    Task<PagedList<Book>> GetAllBooksAsync(BookParameters bookParameters, bool trackChanges);
+    Task<List<Book>> GetAllBooksAsync(bool trackChanges);
+    Task<Book?> GetOneBookByIdAsync(int id, bool trackChanges);
 
-        void CreateOneBook(Book book);
-        void UpdateOneBook(Book book);
-        void DeleteOneBook(Book book);
-    }
+    void CreateOneBook(Book book);
+    void UpdateOneBook(Book book);
+    void DeleteOneBook(Book book);
+
+    Task<IEnumerable<Book>> GetAllBooksWithDetailsAsync(bool trackChanges);
 }
