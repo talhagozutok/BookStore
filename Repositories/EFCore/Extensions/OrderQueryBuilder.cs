@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
-using Entities.Models;
 
 namespace Repositories.EFCore.Extensions;
 
@@ -37,11 +32,13 @@ public static class OrderQueryBuilder
                 continue;
             }
 
-            var direction = param.EndsWith(" desc") ? "descending" : "ascending";
+            var direction = param.EndsWith(" desc")
+                            ? "descending"
+                            : "ascending";
 
             orderQueryBuilder.Append($"{objectProperty.Name.ToString()}  {direction},");
         }
-        
+
         var orderQuery = orderQueryBuilder.ToString().TrimEnd(',', ' ');
 
         return orderQuery;

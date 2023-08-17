@@ -22,7 +22,8 @@ public class AuthenticationManager : IAuthenticationService
 
     private User? _user;
 
-    public AuthenticationManager(ILoggerService logger,
+    public AuthenticationManager(
+        ILoggerService logger,
         IMapper mapper,
         UserManager<User> userManager,
         IConfiguration configuration)
@@ -74,7 +75,8 @@ public class AuthenticationManager : IAuthenticationService
     public async Task<bool> ValidateUser(UserForAuthenticationDto userForAuthenticationDto)
     {
         _user = await _userManager.FindByNameAsync(userForAuthenticationDto.UserName);
-        var result = (_user != null && await _userManager.CheckPasswordAsync(_user, userForAuthenticationDto.Password));
+        var result = (_user != null
+            && await _userManager.CheckPasswordAsync(_user, userForAuthenticationDto.Password));
 
         if (!result)
         {
@@ -84,7 +86,8 @@ public class AuthenticationManager : IAuthenticationService
         return result;
     }
 
-    private SecurityToken GenerateTokenOptions(SigningCredentials signinCredentials,
+    private SecurityToken GenerateTokenOptions(
+        SigningCredentials signinCredentials,
         List<Claim> claims)
     {
         var jwtSettings = _configuration.GetSection("JwtSettings");
@@ -162,9 +165,8 @@ public class AuthenticationManager : IAuthenticationService
 
         var jwtSecurityToken = securityToken as JwtSecurityToken;
 
-        if (jwtSecurityToken is null ||
-            !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
-            StringComparison.InvariantCultureIgnoreCase))
+        if (jwtSecurityToken is null
+            || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
         {
             throw new SecurityTokenException("Invalid token.");
         }
@@ -177,9 +179,9 @@ public class AuthenticationManager : IAuthenticationService
         var principal = GetPrincipalFromExpiredToken(tokenDto.AccessToken);
         var user = await _userManager.FindByNameAsync(principal.Identity.Name);
 
-        if (user is null ||
-            user.RefreshToken != tokenDto.RefreshToken ||
-            user.RefreshTokenExpiryTime <= DateTime.Now)
+        if (user is null
+            || user.RefreshToken != tokenDto.RefreshToken
+            || user.RefreshTokenExpiryTime <= DateTime.Now)
         {
             throw new RefreshTokenBadRequestException();
         }

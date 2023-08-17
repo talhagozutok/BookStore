@@ -8,7 +8,8 @@ public class ServiceManager : IServiceManager
     private readonly ICategoryService _categoryService;
     private readonly IAuthenticationService _authenticationService;
 
-    public ServiceManager(IBookService bookService,
+    public ServiceManager(
+        IBookService bookService,
         ICategoryService categoryService,
         IAuthenticationService authenticationService)
     {
@@ -19,6 +20,6 @@ public class ServiceManager : IServiceManager
 
     public IBookService BookService => _bookService;
     public ICategoryService CategoryService => _categoryService;
-    public IAuthenticationService AuthenticationService =>_authenticationService;
+    public IAuthenticationService AuthenticationService => _authenticationService;
 
 }

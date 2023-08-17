@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using Entities.DataTransferObjects;
-using Entities.Models;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
 
@@ -17,8 +16,8 @@ public class CsvOutputFormatter : TextOutputFormatter
 
     protected override bool CanWriteType(Type? type)
     {
-        if (typeof(BookDto).IsAssignableFrom(type) ||
-           typeof(IEnumerable<BookDto>).IsAssignableFrom(type))
+        if (typeof(BookDto).IsAssignableFrom(type)
+            || typeof(IEnumerable<BookDto>).IsAssignableFrom(type))
         {
             return base.CanWriteType(type);
         }
@@ -30,7 +29,8 @@ public class CsvOutputFormatter : TextOutputFormatter
         buffer.AppendLine($"{book.Id}, {book.Title}, {book.Price}");
     }
 
-    public override async Task WriteResponseBodyAsync(OutputFormatterWriteContext context,
+    public override async Task WriteResponseBodyAsync(
+        OutputFormatterWriteContext context,
         Encoding selectedEncoding)
     {
         var response = context.HttpContext.Response;

@@ -22,7 +22,9 @@ namespace WebApi.Extensions;
 
 public static class ServicesExtensions
 {
-    public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration)
+    public static void ConfigureSqlContext(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
         services.AddDbContext<RepositoryContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("sqlConnection"))
@@ -34,11 +36,11 @@ public static class ServicesExtensions
         services.AddScoped<IRepositoryManager, RepositoryManager>();
     }
 
-    public static void ConfigureServiceManager(this IServiceCollection services) =>
-        services.AddScoped<IServiceManager, ServiceManager>();
+    public static void ConfigureServiceManager(this IServiceCollection services)
+        => services.AddScoped<IServiceManager, ServiceManager>();
 
-    public static void ConfigureLoggerService(this IServiceCollection services) =>
-        services.AddSingleton<ILoggerService, LoggerManager>();
+    public static void ConfigureLoggerService(this IServiceCollection services)
+        => services.AddSingleton<ILoggerService, LoggerManager>();
 
     public static void ConfigureActionFilters(this IServiceCollection services)
     {
@@ -167,7 +169,8 @@ public static class ServicesExtensions
             .AddDefaultTokenProviders();
     }
 
-    public static void ConfigureJWT(this IServiceCollection services,
+    public static void ConfigureJWT(
+        this IServiceCollection services,
         IConfiguration configuration)
     {
         var jwtSettings = configuration.GetSection("JwtSettings");
@@ -198,7 +201,8 @@ public static class ServicesExtensions
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1",
-                new OpenApiInfo {
+                new OpenApiInfo
+                {
                     Title = "BTK Akademi",
                     Version = "v1",
                     Description = "BTK Akademi ASP.NET Core Web API",

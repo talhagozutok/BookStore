@@ -55,7 +55,7 @@ public class AuthenticationController : ControllerBase
 
     [HttpPost("refresh")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
-    public async Task<IActionResult> Refresh([FromBody]TokenDto tokenDto)
+    public async Task<IActionResult> Refresh([FromBody] TokenDto tokenDto)
     {
         var tokenDtoToReturn = await _service
             .AuthenticationService

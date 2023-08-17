@@ -8,7 +8,6 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     public void Configure(EntityTypeBuilder<Category> builder)
     {
         builder.HasKey(c => c.CategoryId); // PK
-        builder.Property(c => c.CategoryName).IsRequired();
 
         builder.HasData(
             new Category()
