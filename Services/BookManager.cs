@@ -1,5 +1,4 @@
-﻿using System.Dynamic;
-using AutoMapper;
+﻿using AutoMapper;
 using Entities.DataTransferObjects;
 using Entities.Exceptions;
 using Entities.LinkModels;
@@ -17,7 +16,6 @@ public class BookManager : IBookService
     private readonly ILoggerService _logger;
     private readonly IMapper _mapper;
     private readonly IBookLinks _bookLinks;
-
     public BookManager(IRepositoryManager manager,
         ILoggerService logger,
         IMapper mapper,
@@ -49,8 +47,9 @@ public class BookManager : IBookService
         await _manager.SaveAsync();
     }
 
-    public async Task<(LinkResponse linkResponse, Metadata metaData)>
-        GetAllBooksAsync(LinkParameters linkParameters, bool trackChanges)
+    public async Task<(LinkResponse linkResponse, Metadata metaData)> GetAllBooksAsync(
+        LinkParameters linkParameters,
+        bool trackChanges)
     {
         if (!linkParameters.BookParameters.ValidPriceRange)
         {
@@ -87,7 +86,9 @@ public class BookManager : IBookService
         return _mapper.Map<BookDto>(book);
     }
 
-    public async Task<(BookDtoForUpdate bookDtoForUpdate, Book book)> GetOneBookForPatchAsync(int id, bool trackChanges)
+    public async Task<(BookDtoForUpdate bookDtoForUpdate, Book book)> GetOneBookForPatchAsync(
+        int id,
+        bool trackChanges)
     {
         var book = await _manager.Book.GetOneBookByIdAsync(id, trackChanges);
         var bookDtoForUpdate = _mapper.Map<BookDtoForUpdate>(book);

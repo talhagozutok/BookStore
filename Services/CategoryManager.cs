@@ -17,10 +17,9 @@ public class CategoryManager : ICategoryService
         _manager = manager;
     }
 
-    public async Task<IEnumerable<Category>> GetAllCategoriesAsync(bool trackChanges) =>
-        await _manager
-        .Category
-        .GetAllCategoriesAsync(trackChanges);
+    public async Task<IEnumerable<Category>> GetAllCategoriesAsync(bool trackChanges)
+        => await _manager.Category
+                         .GetAllCategoriesAsync(trackChanges);
 
     public async Task<Category> GetOneCategoryByIdAsync(int id, bool trackChanges)
     {

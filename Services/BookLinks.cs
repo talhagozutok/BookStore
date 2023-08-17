@@ -14,15 +14,16 @@ public class BookLinks : IBookLinks
     private readonly LinkGenerator _linkGenerator;
     private readonly IDataShaper<BookDto> _dataShaper;
 
-    public BookLinks(LinkGenerator linkGenerator,
+    public BookLinks(
+        LinkGenerator linkGenerator,
         IDataShaper<BookDto> dataShaper)
     {
         _linkGenerator = linkGenerator;
         _dataShaper = dataShaper;
     }
 
-
-    public LinkResponse TryGenerateLinks(IEnumerable<BookDto> booksDto,
+    public LinkResponse TryGenerateLinks(
+        IEnumerable<BookDto> booksDto,
         string fields,
         HttpContext httpContext)
     {
@@ -34,14 +35,15 @@ public class BookLinks : IBookLinks
         return ReturnShapedBooks(shapedBooks);
     }
 
-    private LinkResponse ReturnLinkedBooks(IEnumerable<BookDto> booksDto,
+    private LinkResponse ReturnLinkedBooks(
+        IEnumerable<BookDto> booksDto,
         string fields,
         HttpContext httpContext,
         List<Entity> shapedBooks)
     {
         var booksDtoList = booksDto.ToList();
 
-        for (int index = 0; index < booksDtoList.Count(); index++)
+        for (int index = 0; index < booksDtoList.Count; index++)
         {
             var bookLinks = CreateForBook(httpContext, booksDtoList[index], fields);
             shapedBooks[index].Add("Links", bookLinks);
@@ -52,7 +54,8 @@ public class BookLinks : IBookLinks
         return new LinkResponse { HasLinks = true, LinkedEntities = bookCollection };
     }
 
-    private LinkCollectionWrapper<Entity> CreateForBooks(HttpContext httpContext,
+    private LinkCollectionWrapper<Entity> CreateForBooks(
+        HttpContext httpContext,
         LinkCollectionWrapper<Entity> bookCollectionWrapper)
     {
         bookCollectionWrapper.Links.Add(new Link()
@@ -65,7 +68,8 @@ public class BookLinks : IBookLinks
         return bookCollectionWrapper;
     }
 
-    private List<Link> CreateForBook(HttpContext httpContext,
+    private List<Link> CreateForBook(
+        HttpContext httpContext,
         BookDto bookDto,
         string fields)
     {

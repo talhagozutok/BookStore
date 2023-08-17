@@ -7,7 +7,10 @@ using Entities.LinkModels;
 
 namespace Entities.Models
 {
-    public class Entity : DynamicObject, IXmlSerializable, IDictionary<string, object>
+    public class Entity :
+        DynamicObject,
+        IXmlSerializable,
+        IDictionary<string, object>
     {
         private readonly string _root = "Entity";
         private readonly IDictionary<string, object> _expando;
@@ -17,7 +20,9 @@ namespace Entities.Models
             _expando = new ExpandoObject();
         }
 
-        public override bool TryGetMember(GetMemberBinder binder, out object result)
+        public override bool TryGetMember(
+            GetMemberBinder binder,
+            out object result)
         {
             if (_expando.TryGetValue(binder.Name, out object? value))
             {
@@ -27,7 +32,9 @@ namespace Entities.Models
             return base.TryGetMember(binder, out result);
         }
 
-        public override bool TrySetMember(SetMemberBinder binder, object? value)
+        public override bool TrySetMember(
+            SetMemberBinder binder,
+            object? value)
         {
             _expando[binder.Name] = value;
 
@@ -66,7 +73,10 @@ namespace Entities.Models
             }
         }
 
-        private void WriteLinksToXml(string key, object value, XmlWriter writer)
+        private void WriteLinksToXml(
+            string key,
+            object value,
+            XmlWriter writer)
         {
             writer.WriteStartElement(key);
 
@@ -146,7 +156,9 @@ namespace Entities.Models
             return _expando.Contains(item);
         }
 
-        public void CopyTo(KeyValuePair<string, object>[] array, int arrayIndex)
+        public void CopyTo(
+            KeyValuePair<string, object>[] array,
+            int arrayIndex)
         {
             _expando.CopyTo(array, arrayIndex);
         }

@@ -8,7 +8,8 @@ public class RepositoryManager : IRepositoryManager
     private readonly IBookRepository _bookRepository;
     private readonly ICategoryRepository _categoryRepository;
 
-    public RepositoryManager(RepositoryContext context,
+    public RepositoryManager(
+        RepositoryContext context,
         IBookRepository bookRepository,
         ICategoryRepository categoryRepository)
     {

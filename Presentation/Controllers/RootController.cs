@@ -18,26 +18,39 @@ public class RootController : ControllerBase
     }
 
     [HttpGet(Name = "GetRoot")]
-    public async Task<IActionResult> GetRoot([FromHeader(Name = "Accept")] string mediaType)
+    public async Task<IActionResult> GetRoot(
+        [FromHeader(Name = "Accept")] string mediaType)
     {
         if (mediaType.Contains("application/vnd.tgztk.apiroot"))
         {
             var list = new List<Link>() {
                 new Link()
                 {
-                    Href = _linkGenerator.GetUriByName(HttpContext, nameof(GetRoot), new()),
+                    Href = _linkGenerator.GetUriByName(
+                        HttpContext,
+                        nameof(GetRoot),
+                        new()),
+
                     Rel = "_self",
                     Method = "GET",
                 },
                 new Link()
                 {
-                    Href = _linkGenerator.GetUriByName(HttpContext, nameof(BooksController.GetAllBooksAsync), new()),
+                    Href = _linkGenerator.GetUriByName(
+                        HttpContext,
+                        nameof(BooksController.GetAllBooksAsync),
+                        new()),
+
                     Rel = "books",
                     Method = "GET",
                 },
                 new Link()
                 {
-                    Href = _linkGenerator.GetUriByName(HttpContext, nameof(BooksController.CreateOneBookAsync), new()),
+                    Href = _linkGenerator.GetUriByName(
+                        HttpContext,
+                        nameof(BooksController.CreateOneBookAsync),
+                        new()),
+
                     Rel = "books",
                     Method = "POST",
                 },

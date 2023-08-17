@@ -19,7 +19,9 @@ public class LogFilterAttribute : ActionFilterAttribute
         _logger.LogInfo(Log("OnActionExecuting", context.RouteData));
     }
 
-    private string Log(string modelName, RouteData routeData)
+    private string Log(
+        string modelName,
+        RouteData routeData)
     {
         var logDetails = new LogDetails()
         {

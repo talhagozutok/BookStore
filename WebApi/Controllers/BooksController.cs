@@ -1,7 +1,7 @@
 ﻿using Entities.Models;
-using Repositories.EFCore;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Repositories.EFCore;
 
 namespace WebApi.Controllers
 {
@@ -137,7 +137,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPatch("{id:int}")]
-        public IActionResult PartiallyUpdateOneBook([FromRoute(Name = "id")] int id, [FromBody] JsonPatchDocument<Book> bookPatch)
+        public IActionResult PartiallyUpdateOneBook(
+            [FromRoute(Name = "id")] int id,
+            [FromBody] JsonPatchDocument<Book> bookPatch)
         {
             try
             {

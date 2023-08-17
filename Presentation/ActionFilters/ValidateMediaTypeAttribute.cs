@@ -31,6 +31,7 @@ public class ValidateMediaTypeAttribute : IActionFilter
         }
         context.HttpContext.Items.Add("AcceptHeaderMediaType", outMediaType);
     }
+
     public void OnActionExecuted(ActionExecutedContext context)
     {
     }
